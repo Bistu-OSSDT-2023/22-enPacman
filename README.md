@@ -179,35 +179,6 @@ if (config['go home'][i + ',' + j]) {
                   }
                 });
               }
-              //吃到减速道具
-							if(config['slow'][this.coord.x+','+this.coord.y]){	
-								items.forEach(function(item){
-
-									if(item.status==1||item.status==3){	//如果NPC为正常状态，则置为临时状态
-
-										item.timeout = 450;
-										item.status = 5;
-
-									}
-								});
-							}
-              //吃到一路顺风道具
-							if(config['go home'][this.coord.x+','+this.coord.y]){	
-								items.forEach(function(item){
-
-									if(item.status==1||item.status==3){	//如果NPC为正常状态，则置为临时状态
-
-										item.timeout = 450;
-										item.status = 4;
-
-									}
-								});
-							}
-            }
-            this.x += this.speed * _COS[this.orientation];
-            this.y += this.speed * _SIN[this.orientation];
-          }
-        },
 ```
 
 ## 开发人员
