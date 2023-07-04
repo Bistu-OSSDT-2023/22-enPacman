@@ -125,141 +125,89 @@ if (config['go home'][i + ',' + j]) {
           }
         },
       });
-      //绘制地图
-      map = stage.createMap({
-        x: 60,
-        y: 10,
-        data: config["map"],
-        cache: true,
-        draw: function (context) {
-          context.lineWidth = 2;
-          for (var j = 0; j < this.y_length; j++) {
-            for (var i = 0; i < this.x_length; i++) {
-              var value = this.get(i, j);
-              if (value) {
-                var code = [0, 0, 0, 0];
-                if (
-                  this.get(i + 1, j) &&
-                  !(
-                    this.get(i + 1, j - 1) &&
-                    this.get(i + 1, j + 1) &&
-                    this.get(i, j - 1) &&
-                    this.get(i, j + 1)
-                  )
-                ) {
-                  code[0] = 1;
-                }
-                if (
-                  this.get(i, j + 1) &&
-                  !(
-                    this.get(i - 1, j + 1) &&
-                    this.get(i + 1, j + 1) &&
-                    this.get(i - 1, j) &&
-                    this.get(i + 1, j)
-                  )
-                ) {
-                  code[1] = 1;
-                }
-                if (
-                  this.get(i - 1, j) &&
-                  !(
-                    this.get(i - 1, j - 1) &&
-                    this.get(i - 1, j + 1) &&
-                    this.get(i, j - 1) &&
-                    this.get(i, j + 1)
-                  )
-                ) {
-                  code[2] = 1;
-                }
-                if (
-                  this.get(i, j - 1) &&
-                  !(
-                    this.get(i - 1, j - 1) &&
-                    this.get(i + 1, j - 1) &&
-                    this.get(i - 1, j) &&
-                    this.get(i + 1, j)
-                  )
-                ) {
-                  code[3] = 1;
-                }
-                if (code.indexOf(1) > -1) {
-                  context.strokeStyle =
-                    value == 2 ? "#FFF" : config["wall_color"];
-                  var pos = this.coord2position(i, j);
-                  switch (code.join("")) {
-                    case "1100":
-                      context.beginPath();
-                      context.arc(
-                        pos.x + this.size / 2,
-                        pos.y + this.size / 2,
-                        this.size / 2,
-                        Math.PI,
-                        1.5 * Math.PI,
-                        false
-                      );
-                      context.stroke();
-                      context.closePath();
-                      break;
-                    case "0110":
-                      context.beginPath();
-                      context.arc(
-                        pos.x - this.size / 2,
-                        pos.y + this.size / 2,
-                        this.size / 2,
-                        1.5 * Math.PI,
-                        2 * Math.PI,
-                        false
-                      );
-                      context.stroke();
-                      context.closePath();
-                      break;
-                    case "0011":
-                      context.beginPath();
-                      context.arc(
-                        pos.x - this.size / 2,
-                        pos.y - this.size / 2,
-                        this.size / 2,
-                        0,
-                        0.5 * Math.PI,
-                        false
-                      );
-                      context.stroke();
-                      context.closePath();
-                      break;
-                    case "1001":
-                      context.beginPath();
-                      context.arc(
-                        pos.x + this.size / 2,
-                        pos.y - this.size / 2,
-                        this.size / 2,
-                        0.5 * Math.PI,
-                        1 * Math.PI,
-                        false
-                      );
-                      context.stroke();
-                      context.closePath();
-                      break;
-                    default:
-                      var dist = this.size / 2;
-                      code.forEach(function (v, index) {
-                        if (v) {
-                          context.beginPath();
-                          context.moveTo(pos.x, pos.y);
-                          context.lineTo(
-                            pos.x - _COS[index] * dist,
-                            pos.y - _SIN[index] * dist
-                          );
-                          context.stroke();
-                          context.closePath();
-                        }
-                      });
-                  }
-                }
+      //主角
+      player = stage.createItem({
+        width: 30,
+        height: 30,
+        type: 1,
+        location: map,
+        eatSound: new Audio("eat.mp3"),
+        dieSound: new Audio("death.mp3"),
+        coord: { x: 13.5, y: 23 },
+        orientation: 2,
+        speed: 2,
+        frames: 10,
+        update: function () {
+          var coord = this.coord;
+          if (!coord.offset) {
+            if (typeof this.control.orientation != "undefined") {
+              if (
+                !map.get(
+                  coord.x + _COS[this.control.orientation],
+                  coord.y + _SIN[this.control.orientation]
+                )
+              ) {
+                this.orientation = this.control.orientation;
               }
             }
+            this.control = {};
+            var value = map.get(
+              coord.x + _COS[this.orientation],
+              coord.y + _SIN[this.orientation]
+            );
+            if (value == 0) {
+              this.x += this.speed * _COS[this.orientation];
+              this.y += this.speed * _SIN[this.orientation];
+            } else if (value < 0) {
+              this.x -= map.size * (map.x_length - 1) * _COS[this.orientation];
+              this.y -= map.size * (map.y_length - 1) * _SIN[this.orientation];
+            }
+          } else {
+            if (!beans.get(this.coord.x, this.coord.y)) {
+              //吃豆
+              _SCORE++;
+              beans.set(this.coord.x, this.coord.y, 1);
+              this.eatSound.play(); // 添加音效
+              if (config["goods"][this.coord.x + "," + this.coord.y]) {
+                //吃到能量豆
+                this.eatSound.play(); // 添加音效
+                items.forEach(function (item) {
+                  if (item.status == 1 || item.status == 3) {
+                    //如果NPC为正常状态，则置为临时状态
+                    item.timeout = 450;
+                    item.status = 3;
+                  }
+                });
+              }
+              //吃到减速道具
+							if(config['slow'][this.coord.x+','+this.coord.y]){	
+								items.forEach(function(item){
+
+									if(item.status==1||item.status==3){	//如果NPC为正常状态，则置为临时状态
+
+										item.timeout = 450;
+										item.status = 5;
+
+									}
+								});
+							}
+              //吃到一路顺风道具
+							if(config['go home'][this.coord.x+','+this.coord.y]){	
+								items.forEach(function(item){
+
+									if(item.status==1||item.status==3){	//如果NPC为正常状态，则置为临时状态
+
+										item.timeout = 450;
+										item.status = 4;
+
+									}
+								});
+							}
+            }
+            this.x += this.speed * _COS[this.orientation];
+            this.y += this.speed * _SIN[this.orientation];
           }
         },
-      });
 ```
 
 ## 开发人员
