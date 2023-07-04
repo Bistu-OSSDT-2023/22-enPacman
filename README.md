@@ -27,6 +27,26 @@ https://github.com/Bistu-OSSDT-2023/22-enPacman/assets/114382806/492d5460-e140-4
 - [x] 特殊物品记分
 - [x] 特殊音效设置
 - [x] 地图美化设置
+###功能具体代码
+- [x] 减速豆功能
+//如果有减速道具，进行绘制 
+								if(config['slow'][i+','+j]){//如果格子上有减速道具，进行绘制
+									context.beginPath();//表示开始一个新的路径，用于定义绘制的形状
+									context.arc(pos.x,pos.y,5+this.times%2,0,2*Math.PI,true);
+									context.fillStyle = "#FFB6C1";//并进行颜色的填充
+									context.fill();//圆形区域的颜色填充
+									context.closePath();//结束当前路径
+								}
+								
+- [x] 回家豆功能
+      //如果有回家道具，进行绘制
+								if(config['go home'][i+','+j]){//如果格子上有减速道具，进行绘制
+									context.beginPath();//表示开始一个新的路径，用于定义绘制的形状
+									context.arc(pos.x,pos.y,5+this.times%2,0,2*Math.PI,true);
+									context.fillStyle = "#FFA500";//并进行颜色的填充
+									context.fill();//圆形区域的颜色填充
+									context.closePath();//结束当前路径
+								}
 
 ### 开发人员
 | 用户名           | 邮箱                         |
