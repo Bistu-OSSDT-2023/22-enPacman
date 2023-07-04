@@ -23,8 +23,10 @@ https://github.com/Bistu-OSSDT-2023/22-enPacman/assets/114382806/492d5460-e140-4
 - [x] 地图美化设置
 
 ### 开发人员
-gongChengYuan-30 3216158096@qq.com <br>
-kittleyu dxyu1117@126.com <br>
-Gj1102  2022011167@bistu.edu.cn <br>
-Yujia040528 2022011173@bistu.edu.cn <br>
-W-71 WangNinghahaha@Outlook.com <br>
+| 用户名           | 邮箱                         |
+| ---------------- | ---------------------------- |
+| gongChengYuan-30 | 3216158096@qq.com            |
+| kittleyu         | dxyu1117@126.com             |
+| Gj1102           | 2022011167@bistu.edu.cn      |
+| Yujia040528      | 2022011173@bistu.edu.cn      |
+| W-71             | WangNinghahaha@Outlook.com   |
