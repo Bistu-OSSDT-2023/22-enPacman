@@ -1,21 +1,16 @@
-The MIT License (MIT)
+# Pacman 吃豆游戏
 
-Copyright (c) 2016 Haole Zheng
+- 项目演示(DEMO)地址：https://passer-by.com/pacman/
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+### 版权
+本游戏由 [passer-by.com](https://passer-by.com/) 制作，请尊重作者，引用请注明来源。
 
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
+功能
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.# 22-enPacman
+- [x] 地图绘制
+- [x] 玩家控制
+- [x] NPC根据玩家坐标实时自动寻径
+- [x] 吃豆积分系统
+- [x] 能量豆功能
+- [x] 多关卡(共12关)
+- [ ] 特殊物品记分
