@@ -20,8 +20,8 @@
 - [x] 地图美化设置
 
 ### 开发人员
-龚成远 3216158096@qq.com <br>
-代校钰 dxyu1117@126.com <br>
-高洁 2022011167@bistu.edu.cn <br>
-霍雨佳 2022011173@bistu.edu.cn <br>
-王宁 WangNinghahaha@Outlook.com <br>
+gongChengYuan-30 3216158096@qq.com <br>
+kittleyu dxyu1117@126.com <br>
+Gj1102  2022011167@bistu.edu.cn <br>
+Yujia040528 2022011173@bistu.edu.cn <br>
+W-71 WangNinghahaha@Outlook.com <br>
