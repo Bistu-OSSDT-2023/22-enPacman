@@ -1,4 +1,8 @@
-
+```HTML
+<video width="320" height="240" controls>
+    <source src="pacman.mp4" type="video/mp4">
+</video>
+```
 # Pacman 吃豆游戏
 
 - 项目演示(DEMO)地址：[https://bistu-ossdt-2023.github.io/22-enPacman/]
