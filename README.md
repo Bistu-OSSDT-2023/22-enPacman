@@ -62,6 +62,206 @@ if (config['go home'][i + ',' + j]) {
 }
 ```
 
+### 特殊音效功能
+
+```js
+//创建背景音乐
+    var bgm = new Audio('bgm.mp3');
+    //音乐播放器
+    var bgms = [];
+    var loop = function () {
+      bgms.push(bgm.play());
+      if (bgms.length === 5) bgms.shift();
+      setTimeout(loop, 500);
+    }
+    loop();
+ //游戏主程序
+  (function () {
+    _COIGIG.forEach(function (config, index) {
+      var stage, map, beans, items, player;
+      var winSound = new Audio("win.mp3"); //胜利音效
+      stage = game.createStage({
+        update: function () {
+          var stage = this;
+          if (stage.status == 1) {
+            //场景正常运行
+            items.forEach(function (item) {
+              if (
+                map &&
+                !map.get(item.coord.x, item.coord.y) &&
+                !map.get(player.coord.x, player.coord.y)
+              ) {
+                var dx = item.x - player.x;
+                var dy = item.y - player.y;
+                if (dx * dx + dy * dy < 750 && item.status != 4) {
+                  //物体检测
+                  if (item.status == 3) {
+                    item.status = 4;
+                    _SCORE += 10;
+                  } else {
+                    stage.status = 3;
+                    stage.timeout = 30;
+                  }
+                }
+              }
+            });
+            if (JSON.stringify(beans.data).indexOf(0) < 0) {
+              //当没有物品的时候，进入下一关
+              winSound.play(); //播放胜利音效
+              game.nextStage();
+            }
+          } else if (stage.status == 3) {
+            //场景临时状态
+            if (!stage.timeout) {
+              _LIFE--;
+              if (_LIFE) {
+                stage.resetItems();
+              } else {
+                var stages = game.getStages();
+                game.setStage(stages.length - 1);
+                return false;
+              }
+            }
+          }
+        },
+      });
+      //绘制地图
+      map = stage.createMap({
+        x: 60,
+        y: 10,
+        data: config["map"],
+        cache: true,
+        draw: function (context) {
+          context.lineWidth = 2;
+          for (var j = 0; j < this.y_length; j++) {
+            for (var i = 0; i < this.x_length; i++) {
+              var value = this.get(i, j);
+              if (value) {
+                var code = [0, 0, 0, 0];
+                if (
+                  this.get(i + 1, j) &&
+                  !(
+                    this.get(i + 1, j - 1) &&
+                    this.get(i + 1, j + 1) &&
+                    this.get(i, j - 1) &&
+                    this.get(i, j + 1)
+                  )
+                ) {
+                  code[0] = 1;
+                }
+                if (
+                  this.get(i, j + 1) &&
+                  !(
+                    this.get(i - 1, j + 1) &&
+                    this.get(i + 1, j + 1) &&
+                    this.get(i - 1, j) &&
+                    this.get(i + 1, j)
+                  )
+                ) {
+                  code[1] = 1;
+                }
+                if (
+                  this.get(i - 1, j) &&
+                  !(
+                    this.get(i - 1, j - 1) &&
+                    this.get(i - 1, j + 1) &&
+                    this.get(i, j - 1) &&
+                    this.get(i, j + 1)
+                  )
+                ) {
+                  code[2] = 1;
+                }
+                if (
+                  this.get(i, j - 1) &&
+                  !(
+                    this.get(i - 1, j - 1) &&
+                    this.get(i + 1, j - 1) &&
+                    this.get(i - 1, j) &&
+                    this.get(i + 1, j)
+                  )
+                ) {
+                  code[3] = 1;
+                }
+                if (code.indexOf(1) > -1) {
+                  context.strokeStyle =
+                    value == 2 ? "#FFF" : config["wall_color"];
+                  var pos = this.coord2position(i, j);
+                  switch (code.join("")) {
+                    case "1100":
+                      context.beginPath();
+                      context.arc(
+                        pos.x + this.size / 2,
+                        pos.y + this.size / 2,
+                        this.size / 2,
+                        Math.PI,
+                        1.5 * Math.PI,
+                        false
+                      );
+                      context.stroke();
+                      context.closePath();
+                      break;
+                    case "0110":
+                      context.beginPath();
+                      context.arc(
+                        pos.x - this.size / 2,
+                        pos.y + this.size / 2,
+                        this.size / 2,
+                        1.5 * Math.PI,
+                        2 * Math.PI,
+                        false
+                      );
+                      context.stroke();
+                      context.closePath();
+                      break;
+                    case "0011":
+                      context.beginPath();
+                      context.arc(
+                        pos.x - this.size / 2,
+                        pos.y - this.size / 2,
+                        this.size / 2,
+                        0,
+                        0.5 * Math.PI,
+                        false
+                      );
+                      context.stroke();
+                      context.closePath();
+                      break;
+                    case "1001":
+                      context.beginPath();
+                      context.arc(
+                        pos.x + this.size / 2,
+                        pos.y - this.size / 2,
+                        this.size / 2,
+                        0.5 * Math.PI,
+                        1 * Math.PI,
+                        false
+                      );
+                      context.stroke();
+                      context.closePath();
+                      break;
+                    default:
+                      var dist = this.size / 2;
+                      code.forEach(function (v, index) {
+                        if (v) {
+                          context.beginPath();
+                          context.moveTo(pos.x, pos.y);
+                          context.lineTo(
+                            pos.x - _COS[index] * dist,
+                            pos.y - _SIN[index] * dist
+                          );
+                          context.stroke();
+                          context.closePath();
+                        }
+                      });
+                  }
+                }
+              }
+            }
+          }
+        },
+      });
+```
+
 ## 开发人员
 
 | 用户名           | 邮箱                         |
