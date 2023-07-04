@@ -3,7 +3,7 @@
 - 项目演示(DEMO)地址：[http://127.0.0.1:5500/index.html]
 
 ### 版权
-本游戏由 [passer-by.com](https://passer-by.com/) 制作，请尊重作者，引用请注明来源。
+-本游戏由 [passer-by.com](https://passer-by.com/) 制作，请尊重作者，引用请注明来源。
 
 ### 功能
 
