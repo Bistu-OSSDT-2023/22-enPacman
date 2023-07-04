@@ -5,6 +5,12 @@ https://github.com/Bistu-OSSDT-2023/22-enPacman/assets/114382806/492d5460-e140-4
 
 - 项目演示(DEMO)地址：[https://bistu-ossdt-2023.github.io/22-enPacman/]
 
+## 目录
+
+- [版权](#版权)
+- [功能](#功能)
+- [开发人员](#开发人员)
+
 ### 版权
 本游戏开源代码来自于 [passer-by.com](https://passer-by.com/) ，本项目团队在其基础上进行开发
 
