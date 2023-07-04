@@ -16,3 +16,12 @@
 - [x] 回家豆功能  
 - [x] 多关卡(共12关)
 - [x] 特殊物品记分
+- [x] 特殊音效设置
+- [x] 地图美化设置
+
+### 开发人员
+龚成远 3216158096@qq.com <br>
+代校钰 dxyu1117@126.com <br>
+高洁 2022011167@bistu.edu.cn <br>
+霍雨佳 2022011173@bistu.edu.cn <br>
+王宁 WangNinghahaha@Outlook.com <br>
