@@ -184,7 +184,7 @@ if (config['go home'][i + ',' + j]) {
 | 用户名           | 邮箱                         |
 | ---------------- | ---------------------------- |
 | gongChengYuan-30 | 3216158096@qq.com            |
-| kittleyu         | dxyu1117@126.com             |
+| kittleyu         |  2022011194@bistu.edu.cn            |
 | Gj1102           | 2022011167@bistu.edu.cn      |
 | Yujia040528      | 2022011173@bistu.edu.cn      |
 | W-71             | WangNinghahaha@Outlook.com   |
